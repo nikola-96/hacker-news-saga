@@ -20,7 +20,7 @@ const storiesReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 loadingIds: setIdsForStories(action.payload)
             }
-        case StoriesActionTypes.FETCH_STORIES:
+        case StoriesActionTypes.FETCH_STORIES_SUCCESS:
             return {
                 ...state,
                 stories: action.payload
