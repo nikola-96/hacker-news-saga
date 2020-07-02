@@ -28,7 +28,8 @@ export const fetchStoriesIdsAsync = () => {
 }
 export const fetchStoriesAsync = (ids) => {
     return dispatch => {
-        const promiseArray = ids.map(id => axios.get(`item/${id}.json?print=pretty`))
+        const promiseArray = ids.map(id => axios.get(`item/${id}.json?print=pretty`)) //getting 30 storie promises
         Promise.all(promiseArray).then(responses => dispatch(fetchStoriesSuccess(responses.map(reponse => reponse.data))))
+        //resolving promise, and storing stories in Redux store with fetchStoriesSucces
     }
 }

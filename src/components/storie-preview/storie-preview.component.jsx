@@ -1,6 +1,7 @@
 import React from 'react'
 import './storie-preview.style.css'
 
+
 const StoriePreview = ({ storie }) => (
     <div className="bg-light py-2">
         <div className="d-flex">
@@ -14,10 +15,10 @@ const StoriePreview = ({ storie }) => (
             </a>
         </div>
         <div className="d-flex flex-wrap" >
-            <p className="my-0 mx-1"> {storie.score}</p>
-            <a href="/#" className="my-0 mx-1"></a>
-            <a href="/#" className="my-0 mx-1"></a>
-            <a href="/#" className="my-0 mx-1">hide</a>
+            <p className="my-0 mx-1"> {storie.score} points</p>
+            <a href="/#" className="my-0 mx-1">by {storie.by}</a>
+            <a href="/#" className="my-0 mx-1"> </a>|
+            <a href="/#" className="my-0 mx-1">hide</a>|
         </div>
     </div >
 )
