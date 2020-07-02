@@ -1,7 +1,7 @@
 import React from 'react'
 import './storie-preview.style.css'
 
-const StoriePreview = () => (
+const StoriePreview = ({ id }) => (
     <div className="bg-light py-2">
         <div className="d-flex">
             <div>
@@ -10,7 +10,7 @@ const StoriePreview = () => (
             </div>
             <a href='/#' target="_blank" rel="noopener noreferrer" className="h6 my-0 mx-2 text-dark">
                 title
-            <a href="/#" className="my-0" > host</a>
+            <a href="/#" className="my-0" > {id}</a>
             </a>
         </div>
         <div className="d-flex flex-wrap" >

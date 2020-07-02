@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import TopStories from '../top-stories/topStories.component'
-import { fetchStoriesStartAsync } from '../../redux/stories/stories-actions'
+import { fetchStoriesIdsAsync } from '../../redux/stories/stories-actions'
 
-
-const HomePage = ({ fetchStoriesStart }) => {
+const HomePage = ({ fetchStoriesIds }) => {
     useEffect(() => {
-        fetchStoriesStart()
-    }, [fetchStoriesStart])
+        fetchStoriesIds()
+    }, [fetchStoriesIds])
     return (
         < div className="container bg-light p-0" >
             <TopStories />
@@ -15,7 +14,9 @@ const HomePage = ({ fetchStoriesStart }) => {
     )
 }
 const mapDispatchToProps = (dispatch) => ({
-    fetchStoriesStart: () => dispatch(fetchStoriesStartAsync())
+    fetchStoriesIds: () => dispatch(fetchStoriesIdsAsync())
 })
+
+
 
 export default connect(null, mapDispatchToProps)(HomePage)
