@@ -17,6 +17,4 @@ const mapDispatchToProps = (dispatch) => ({
     fetchStoriesIds: () => dispatch(fetchStoriesIdsAsync())
 })
 
-
-
 export default connect(null, mapDispatchToProps)(HomePage)

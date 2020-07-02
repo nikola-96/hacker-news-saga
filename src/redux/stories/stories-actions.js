@@ -1,6 +1,5 @@
 import StoriesActionTypes from './stories-types'
 import axios from './../../API/baseURL'
-// import storiesReducer from './stories-reducer'
 
 export const fetchStoriesIds = (ids) => (
     {
@@ -29,11 +28,7 @@ export const fetchStoriesIdsAsync = () => {
 }
 export const fetchStoriesAsync = (ids) => {
     return dispatch => {
-        const topStories = []
-        ids.forEach(async id => {
-            let response = await axios.get(`item/${id}.json?print=pretty`)
-            topStories.push(response.data)
-        })
-        dispatch(fetchStoriesSuccess(topStories))
+        const promiseArray = ids.map(id => axios.get(`item/${id}.json?print=pretty`))
+        Promise.all(promiseArray).then(responses => dispatch(fetchStoriesSuccess(responses.map(reponse => reponse.data))))
     }
 }
