@@ -1,5 +1,5 @@
 import StoriesActionTypes from './stories-types'
-import { setIdsForStories } from './stories.utils'
+import { setIdsForStories, searchSingleStorie } from './stories.utils'
 
 const INITIAL_STATE = {
     storiesIds: [],

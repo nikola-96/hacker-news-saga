@@ -7,7 +7,6 @@ export const fetchStoriesIds = (ids) => (
         payload: ids
     }
 )
-
 export const settingStoriesIds = (ids) => ({
     type: StoriesActionTypes.SET_INITIAL_IDS,
     payload: ids
@@ -22,8 +21,6 @@ export const fetchSingleStorie = (storie) => ({
     type: StoriesActionTypes.FETCH_SINGLE_STORIE,
     payload: storie
 })
-
-
 export const fetchStoriesIdsAsync = () => {
     return async dispatch => {
         const response = await axios.get('topstories.json?print=pretty')
@@ -43,6 +40,8 @@ export const fetchSignelStorieAsync = id => {
     return dispatch => {
         axios.get(`item/${id}.json?print=pretty`)
             .then(response => dispatch(fetchSingleStorie(response.data)))
-            .catch(error => console.error(error))
+            .catch(error => console.error(error)) /*
+            we must fetch againg single post, becouse if youser refresh page, store will be empty, and we cat see
+            comments no more */
     }
 }
