@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     storiesIds: [],
     loadingIds: [],
     stories: [],
+    storie: {},
     isFetching: false,
     errorMessage: undefined
 }
@@ -24,9 +25,12 @@ const storiesReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 stories: action.payload
-
             }
-
+        case StoriesActionTypes.FETCH_SINGLE_STORIE:
+            return {
+                ...state,
+                storie: action.payload
+            }
         default: return state
     }
 }
