@@ -3,29 +3,41 @@ import { connect } from 'react-redux'
 import StoriesOverview from '../../components/stories-overview/stories-overview.component'
 import { fetchStoriesAsync, settingStoriesIds } from '../../redux/stories/stories-actions'
 import CustomButton from '../../components/button-component/button.component'
+import Spinner from '../../components/spinner/spinner.component'
+
 
 
 const TopStories = ({ storiesIds, fetchStories,
     stories, storiesIdsForLoadingMoreStories,
-    getIdForLoadingMore }) => {
-    useEffect(() =>
-        fetchStories(storiesIds)
+    getIdForLoadingMore, isStoriesFetched }) => {
+    useEffect(() => {
+        if (storiesIds.length) {
+            fetchStories(storiesIds)
+        }
+    }
         , [storiesIds])
 
     return (
-        <React.Fragment>
-            < StoriesOverview stories={stories} />
-            <CustomButton onClick={() =>
-                getIdForLoadingMore(storiesIdsForLoadingMoreStories)}>
-                Load more
-                </CustomButton>
-        </React.Fragment>
+        <>
+            {isStoriesFetched ?
+                <React.Fragment>
+                    < StoriesOverview stories={stories} />
+                    <CustomButton onClick={() =>
+                        getIdForLoadingMore(storiesIdsForLoadingMoreStories)}>
+                        Load more
+            </CustomButton>
+                </React.Fragment>
+                : <Spinner />
+            }
+        </>
+
     )
 }
 const mapStateToProps = ({ stories }) => ({
     storiesIds: stories.loadingIds,
     stories: stories.stories,
-    storiesIdsForLoadingMoreStories: stories.storiesIds
+    storiesIdsForLoadingMoreStories: stories.storiesIds,
+    isStoriesFetched: stories.isFetched
 
 })
 const mapDispatchToProps = dispatch => ({

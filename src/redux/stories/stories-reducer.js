@@ -1,10 +1,11 @@
 import StoriesActionTypes from './stories-types'
-import { setIdsForStories, searchSingleStorie } from './stories.utils'
+import { setIdsForStories } from './stories.utils'
 
 const INITIAL_STATE = {
     storiesIds: [],
     loadingIds: [],
     stories: [],
+    numbersOfStories: 0,
     storie: {},
     isFetched: false,
     errorMessage: undefined
@@ -16,7 +17,6 @@ const storiesReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 isFetched: action.payload
             }
-
         case StoriesActionTypes.FETCH_COLLECTIONS_START_CALL:
             return {
                 ...state,
@@ -25,18 +25,16 @@ const storiesReducer = (state = INITIAL_STATE, action) => {
         case StoriesActionTypes.SET_INITIAL_IDS:
             return {
                 ...state,
-                loadingIds: setIdsForStories(action.payload)
+                loadingIds: setIdsForStories(action.payload),
+                isFetched: false,
             }
         case StoriesActionTypes.FETCH_STORIES_SUCCESS:
             return {
                 ...state,
                 stories: action.payload,
-                // isFetched: true
-            }
-        case StoriesActionTypes.CHANGE_SPINNER_VALUE:
-            return {
-                ...state,
-                isFetched: !state.isFetched
+                isFetched: true,
+                numbersOfStories: state.numbersOfStories + state.loadingIds.length
+
             }
         case StoriesActionTypes.FETCH_SINGLE_STORIE:
             return {

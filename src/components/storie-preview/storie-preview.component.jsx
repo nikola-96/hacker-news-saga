@@ -1,10 +1,14 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import moment from 'moment'
+
 import './storie-preview.style.css'
-import { Link, Route } from 'react-router-dom'
+
 
 
 const StoriePreview = ({ storie }) => {
     const { kids } = storie
+
     return (
         <div className="bg-light py-2">
             <div className="d-flex">
@@ -20,6 +24,7 @@ const StoriePreview = ({ storie }) => {
             <div className="d-flex flex-wrap" >
                 <p className="my-0 mx-1"> {storie.score} points</p>
                 <a href="/#" className="my-0 mx-1">by {storie.by}</a>|
+                <a href="/#" className="my-0 mx-1">{moment.unix(storie.time).fromNow()}</a>|
                 <a href="/#" className="my-0 mx-1">hide</a>|
                 <Link
                     to={{

@@ -17,12 +17,12 @@ export const settingStoriesIds = (ids) => ({
     payload: ids
 
 })
-export const fetchStoriesSuccess = (stories) => ({
-    type: StoriesActionTypes.FETCH_STORIES_SUCCESS,
-    payload: stories,
-
-
-})
+export const fetchStoriesSuccess = (stories) => {
+    return {
+        type: StoriesActionTypes.FETCH_STORIES_SUCCESS,
+        payload: stories,
+    }
+}
 export const fetchSingleStorie = (storie) => ({
     type: StoriesActionTypes.FETCH_SINGLE_STORIE,
     payload: storie
@@ -39,6 +39,7 @@ export const fetchStoriesAsync = (ids) => {
         const promiseArray = ids.map(id => axios.get(`item/${id}.json?print=pretty`)) //getting 30 storie promises
         Promise.all(promiseArray)
             .then(responses => dispatch(fetchStoriesSuccess(responses.map(reponse => reponse.data))))
+            .catch((erorr) => console.error(erorr))
         //resolving promise, and storing stories in Redux store with fetchStoriesSucces
     }
 }
