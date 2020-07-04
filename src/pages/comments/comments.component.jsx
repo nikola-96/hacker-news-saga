@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Comments from '../../components/comments-preview/comments-preview'
+import Comments from '../../components/comments-overview/comments-overview'
 import { connect } from 'react-redux'
 import { fetchSignelStorieAsync } from '../../redux/stories/stories-actions'
 import StoriePreview from '../../components/storie-preview/storie-preview.component'

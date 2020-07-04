@@ -22,10 +22,7 @@ const CommentComponent = ({ comment }) => {
             <div dangerouslySetInnerHTML={{ __html: comment.text }} />
             <div className="item-info">
                 <span className="author">by: {comment.by}</span>
-                {showRelay ?
-                    <span className="comment-time">{commentsList()}</span>
-                    : null
-                }
+                <span className="comment-time"></span>
 
                 <div className="sub-comments">
                     {
@@ -40,6 +37,13 @@ const CommentComponent = ({ comment }) => {
                             null
                     }
                     <ul className="subcomments-list">
+                        {showRelay ?
+                            <div>
+                                {commentsList()}
+                            </div>
+                            : null
+                        }
+
                     </ul>
                 </div>
             </div>

@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import StoriePreview from '../storie-preview/storie-preview.component'
 import { connect } from 'react-redux'
 
 const StoriesOverview = ({ stories }) => {
     return (
-        < div >
+        < React.Fragment >
             {
                 stories.map(storie => < StoriePreview key={storie.id} storie={storie} />)
             }
-        </div >
+        </React.Fragment >
+
     )
 }
 export default connect()(StoriesOverview)

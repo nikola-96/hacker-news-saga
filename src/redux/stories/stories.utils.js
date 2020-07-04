@@ -1,4 +1,4 @@
 import axios from "../../API/baseURL"
 
-export const setIdsForStories = ids => ids.slice(0, 30)
+export const setIdsForStories = ids => ids.splice(0, 30)
 

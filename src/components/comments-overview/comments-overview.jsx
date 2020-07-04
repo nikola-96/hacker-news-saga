@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import CommentComponent from '../comments-overview/comments-overview.component'
+import CommentComponent from '../comments-preview/comments-preview.component'
 import axios from '../../API/baseURL'
 
 const Comments = ({ storie }) => {
@@ -15,7 +15,6 @@ const Comments = ({ storie }) => {
         <React.Fragment >
             {
                 comments.map(comment => <CommentComponent key={comment.id} comment={comment} />)
-
             }
         </React.Fragment>
 
