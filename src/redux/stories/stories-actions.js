@@ -41,7 +41,7 @@ export const fetchSignelStorieAsync = id => {
         axios.get(`item/${id}.json?print=pretty`)
             .then(response => dispatch(fetchSingleStorie(response.data)))
             .catch(error => console.error(error)) /*
-            we must fetch againg single post, becouse if youser refresh page, store will be empty, and we cat see
+            we must fetch againg single post, becouse if user refresh page, store will be empty, and we cat see
             comments no more */
     }
 }

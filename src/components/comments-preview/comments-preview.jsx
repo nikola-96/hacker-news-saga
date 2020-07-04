@@ -12,12 +12,13 @@ const Comments = ({ storie }) => {
         }
     }, [storie])
     return (
-        <div>
+        <React.Fragment >
             {
-                comments.map(comment => <CommentComponent key={comment.id} />)
+                comments.map(comment => <CommentComponent key={comment.id} comment={comment} />)
 
             }
-        </div>
+        </React.Fragment>
+
     )
 }
 export default Comments
