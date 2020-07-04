@@ -30,7 +30,6 @@ const StoriePreview = ({ storie }) => {
                 >
                     {storie.descendants ? storie.descendants : 0} comments
                 </Link>
-
             </div>
         </div >
     )
