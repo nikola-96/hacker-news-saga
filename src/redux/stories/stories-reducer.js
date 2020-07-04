@@ -6,11 +6,17 @@ const INITIAL_STATE = {
     loadingIds: [],
     stories: [],
     storie: {},
-    isFetching: false,
+    isFetched: false,
     errorMessage: undefined
 }
 const storiesReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        case StoriesActionTypes.FETCH_COLLECTIONS_START:
+            return {
+                ...state,
+                isFetched: action.payload
+            }
+
         case StoriesActionTypes.FETCH_COLLECTIONS_START_CALL:
             return {
                 ...state,
@@ -24,7 +30,13 @@ const storiesReducer = (state = INITIAL_STATE, action) => {
         case StoriesActionTypes.FETCH_STORIES_SUCCESS:
             return {
                 ...state,
-                stories: action.payload
+                stories: action.payload,
+                // isFetched: true
+            }
+        case StoriesActionTypes.CHANGE_SPINNER_VALUE:
+            return {
+                ...state,
+                isFetched: !state.isFetched
             }
         case StoriesActionTypes.FETCH_SINGLE_STORIE:
             return {

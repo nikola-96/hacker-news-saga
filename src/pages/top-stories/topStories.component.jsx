@@ -18,7 +18,7 @@ const TopStories = ({ storiesIds, fetchStories,
             <CustomButton onClick={() =>
                 getIdForLoadingMore(storiesIdsForLoadingMoreStories)}>
                 Load more
-            </CustomButton>
+                </CustomButton>
         </React.Fragment>
     )
 }
