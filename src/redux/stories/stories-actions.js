@@ -1,5 +1,5 @@
 import StoriesActionTypes from './stories-types'
-import axios from './../../API/baseURL'
+import axios from '../../helperFunction/baseURL'
 
 export const fetchStoriesStart = () => ({
     type: StoriesActionTypes.FETCH_COLLECTIONS_START,
@@ -15,7 +15,6 @@ export const fetchStoriesIds = (ids) => (
 export const settingStoriesIds = (ids) => ({
     type: StoriesActionTypes.SET_INITIAL_IDS,
     payload: ids
-
 })
 export const fetchStoriesSuccess = (stories) => {
     return {

@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { fetchSignelStorieAsync } from '../../redux/stories/stories-actions'
 import StoriePreview from '../../components/storie-preview/storie-preview.component'
 
+import './comments.component.style.css'
+
 const CommentsPage = ({ match, fetchSingleStorie, storie }) => {
     useEffect(() => {
         fetchSingleStorie(match.params.storieId)
