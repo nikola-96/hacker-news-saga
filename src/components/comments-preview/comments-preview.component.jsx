@@ -12,22 +12,22 @@ const CommentComponent = ({ comment }) => {
     let mounted = true;
 
     useEffect(() => {
-        if (comment.hasOwnProperty('kids')) {
-            const promiseArray = comment.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
-            Promise.all(promiseArray).then(responses => {
-                if (mounted) {
-                    setComments(responses
-                        .filter(response => response.data.deleted !== true) //return comment if is not deleted
-                        .map(reponse => reponse.data))
-                }
-            })
-        }
-        return () => mounted = false;
+        // if (comment.hasOwnProperty('kids')) {
+        //     const promiseArray = comment.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
+        //     Promise.all(promiseArray).then(responses => {
+        //         if (mounted) {
+        //             setComments(responses
+        //                 .filter(response => response.data.deleted !== true) //return comment if is not deleted
+        //                 .map(reponse => reponse.data))
+        //         }
+        //     })
+        // }
+        // return () => mounted = false;
 
     }, [comment])
 
 
-    const commentsList = () => comments.map(commentKid => <CommentComponent key={commentKid.id} comment={commentKid} />)
+    // const commentsList = () => comments.map(commentKid => <CommentComponent key={commentKid.id} comment={commentKid} />)
     return (
         <div className="bg-light pt-3 comment">
             <div className="d-flex flex-wrap">
@@ -47,14 +47,14 @@ const CommentComponent = ({ comment }) => {
                     </div>
                 </div>
             </div>
-            {
+            {/* {
                 hidden ?
                     null
                     :
                     <div className={`bg-secondary ml-4  d-block`}>
                         {commentsList()}
                     </div>
-            }
+            } */}
         </div >
     )
 }

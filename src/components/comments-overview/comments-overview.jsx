@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import CommentComponent from '../comments-preview/comments-preview.component'
 import Spinner from '../spinner/spinner.component';
-import { fetchComm } from '../../helperFunction/commentsUtility';
+import { connect } from 'react-redux';
+import { fetchParentComments } from '../../redux/comments/comments-actions';
 
-const Comments = ({ storie }) => {
-    const [comments, setComments] = useState([]);
-    let mounted = true;
+const Comments = ({ storie, fetchParentComments, comments }) => {
+    // const [comments, setComments] = useState([]);
     useEffect(() => {
         if (storie.kids) {
-            fetchComm(storie).then((comms) => { setComments(comms) })
+            fetchParentComments(storie)
+
         }
-        return () => mounted = false;
     }, [storie])
-    console.log(comments)
 
     return (
         <React.Fragment >
@@ -24,4 +23,10 @@ const Comments = ({ storie }) => {
 
     )
 }
-export default Comments
+const mapDispatchToProps = (dispatch) => ({
+    fetchParentComments: (obj) => dispatch(fetchParentComments(obj))
+})
+const mapStateToProps = ({ comments }) => ({
+    comments: comments.comments
+})
+export default connect(mapStateToProps, mapDispatchToProps)(Comments)
