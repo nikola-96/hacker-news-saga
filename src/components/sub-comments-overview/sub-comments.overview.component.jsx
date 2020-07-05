@@ -4,14 +4,15 @@ import axios from '../../API/baseURL'
 const SubComments = ({ commentKid }) => {
     const [comments, setComments] = useState([]);
     const [showReplay, setReplay] = useState(false)
-    const ac = new AbortController();
+    let mounted = true;
 
     useEffect(() => {
         if (commentKid.hasOwnProperty('kids')) {
             const promiseArray = commentKid.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
-            Promise.all(promiseArray).then(responses => setComments(responses.map(reponse => reponse.data)))
+            Promise.all(promiseArray).then(responses => { if (mounted) { setComments(responses.map(reponse => reponse.data)) } })
         }
-        return () => ac.abort()
+        return () => mounted = false;
+
     }, [commentKid])
     const commentsList = () => comments.map(commentKid1 => <SubComments key={commentKid1.id} commentKid={commentKid1} />)
 

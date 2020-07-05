@@ -4,11 +4,7 @@ import moment from 'moment'
 
 import './storie-preview.style.css'
 
-
-
-const StoriePreview = ({ storie }) => {
-    const { kids } = storie
-
+const StoriePreview = ({ storie, totalIdsForShowing }) => {
     return (
         <div className="bg-light py-2">
             <div className="d-flex">

@@ -27,6 +27,9 @@ export const fetchSingleStorie = (storie) => ({
     type: StoriesActionTypes.FETCH_SINGLE_STORIE,
     payload: storie
 })
+export const changeSpinerStatus = () => ({
+    type: StoriesActionTypes.CHANGE_SPINNER_STATUS
+})
 export const fetchStoriesIdsAsync = () => {
     return async dispatch => {
         const response = await axios.get('topstories.json?print=pretty')

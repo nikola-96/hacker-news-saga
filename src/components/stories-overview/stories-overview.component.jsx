@@ -2,14 +2,20 @@ import React from 'react'
 import StoriePreview from '../storie-preview/storie-preview.component'
 import { connect } from 'react-redux'
 
-const StoriesOverview = ({ stories }) => {
+const StoriesOverview = ({ stories, totalIdsForShowing }) => {
     return (
         < React.Fragment >
             {
-                stories.map(storie => < StoriePreview key={storie.id} storie={storie} />)
+                stories.map(storie => < StoriePreview key={storie.id}
+                    storie={storie}
+                    totalIdsForShowing={totalIdsForShowing}
+                />)
             }
         </React.Fragment >
 
     )
 }
-export default connect()(StoriesOverview)
+const mapStateToProps = state => ({
+    totalIdsForShowing: state.numbersOfStories
+})
+export default connect(mapStateToProps)(StoriesOverview)

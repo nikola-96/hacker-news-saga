@@ -5,15 +5,14 @@ import SubComments from '../sub-comments-overview/sub-comments.overview.componen
 const CommentComponent = ({ comment }) => {
     const [comments, setComments] = useState([]);
     const [showRelay, setReplay] = useState(false)
-    const ac = new AbortController();
-
+    let mounted = true;
 
     useEffect(() => {
         if (comment.hasOwnProperty('kids')) {
             const promiseArray = comment.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
-            Promise.all(promiseArray).then(responses => setComments(responses.map(reponse => reponse.data)))
-            return () => ac.abort()
+            Promise.all(promiseArray).then(responses => { if (mounted) { setComments(responses.map(reponse => reponse.data)) } })
         }
+        return () => mounted = false;
 
     }, [comment])
     const commentsList = () => comments.map(commentKid => <SubComments key={commentKid.id} commentKid={commentKid} />)

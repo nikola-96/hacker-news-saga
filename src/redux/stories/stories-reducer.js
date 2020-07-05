@@ -34,7 +34,11 @@ const storiesReducer = (state = INITIAL_STATE, action) => {
                 stories: action.payload,
                 isFetched: true,
                 numbersOfStories: state.numbersOfStories + state.loadingIds.length
-
+            }
+        case StoriesActionTypes.CHANGE_SPINNER_STATUS:
+            return {
+                ...state,
+                isFetched: !state.isFetched
             }
         case StoriesActionTypes.FETCH_SINGLE_STORIE:
             return {
