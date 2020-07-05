@@ -3,16 +3,16 @@ import axios from '../../helperFunction/baseURL';
 import moment from 'moment'
 
 import './comments-preview.style.css'
-import { getDescendants, fetchComm } from '../../helperFunction/commentsUtility';
+import { getDescendants } from '../../helperFunction/commentsUtility';
 
 const CommentComponent = ({ comment }) => {
     const [comments, setComments] = useState([]);
     const [hidden, setHidden] = useState(false)
+    const [numComments, setNumComments] = useState(0)
     let mounted = true;
 
     useEffect(() => {
         if (comment.hasOwnProperty('kids')) {
-            // setComments(fetchComm(comment))
             const promiseArray = comment.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
             Promise.all(promiseArray).then(responses => {
                 if (mounted) {
@@ -33,11 +33,13 @@ const CommentComponent = ({ comment }) => {
             <div className="d-flex flex-wrap">
                 <div className="mx-1 w-100">
                     <div>
-                        <a href="/#" className="mx-1">{comment.by}</a>
-                        <span className="mx-1">{moment.unix(comment.time).startOf('minutes').fromNow()}</span>
-                        <span className="mx-1"
+                        <span>▲</span>
+
+                        |<a href="/#" className="mx-1">{comment.by}</a>|
+                        <span className="mx-1">{moment.unix(comment.time).startOf('minutes').fromNow()}</span>|
+                        <span className="mx-1 show-more-btn"
                             onClick={() => setHidden(!hidden)}>
-                            {hidden ? `[${getDescendants(comment)} more]` : `[-]`}
+                            {hidden ? `show replays` : `hide replays`}
                         </span>
                     </div>
                     <div className={`pl-4 ${hidden ? 'd-none' : 'd-block'}`}>
@@ -45,14 +47,15 @@ const CommentComponent = ({ comment }) => {
                     </div>
                 </div>
             </div>
-            {hidden ?
-                null
-                :
-                <div className={`bg-secondary ml-4  d-block`}>
-                    {commentsList()}
-                </div>
+            {
+                hidden ?
+                    null
+                    :
+                    <div className={`bg-secondary ml-4  d-block`}>
+                        {commentsList()}
+                    </div>
             }
-        </div>
+        </div >
     )
 }
 export default CommentComponent

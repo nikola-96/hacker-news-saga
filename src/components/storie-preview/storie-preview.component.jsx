@@ -12,7 +12,7 @@ const StoriePreview = ({ storie }) => {
                     <span className="mx-2"></span>
                     <span>▲</span>
                 </div>
-                <a href={storie.url} target="_blank" rel="noopener noreferrer" className="h6 my-0 mx-2 text-dark">
+                <a href={storie.url} target="_blank" rel="noopener noreferrer" className="h6 my-0 mx-2 text-dark title">
                     {storie.title}
                 </a>
             </div>
@@ -26,7 +26,8 @@ const StoriePreview = ({ storie }) => {
                         pathname: `/comments/${storie.id}`,
                         data: storie
                     }}
-                    className="my-0 mx-1"
+                    className="my-0 mx-1 com-descendants"
+                    onClick={() => console.log('radi')}
                 >
                     {storie.descendants ? storie.descendants : 0} comments
                 </Link>

@@ -5,3 +5,9 @@
     font-size: 14px;
     margin-left: 42px;
 }
+.com-descendants:hover{
+    font-style: italic;
+}
+.title:hover{
+    text-decoration: none;
+}

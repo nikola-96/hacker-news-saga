@@ -9,7 +9,7 @@ const HomePage = ({ fetchStoriesIds }) => {
         fetchStoriesIds()
     }, [fetchStoriesIds])
     return (
-        < div className="container bg-light p-0" >
+        < div className="container bg-light p-0 wraper" >
             <TopStories />
         </div >
     )

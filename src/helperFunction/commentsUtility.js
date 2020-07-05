@@ -7,18 +7,19 @@ export const getDescendants = (comment) => {
     return 1;
 }
 
-export const fetchComm = (comment) => {
-    console.log(comment)
-    const arr = []
-    const promiseArray = comment.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
-    Promise.all(promiseArray).then(responses => {
-        arr.push(responses
-            .filter(response => response.data.deleted !== true) //return comment if is not deleted
-            .map(reponse => reponse.data))
-    })
-    if (arr) {
-        return arr
-    }
+export const fetchComm = async (comment) => {
+    let comm = []
+    if (comment) {
+        const promiseArray = comment.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
 
+        const responses = await Promise.all(promiseArray);
+
+        comm = responses
+            .filter(response => response.data.deleted !== true) //return comment if is not deleted
+            .map(reponse => reponse.data)
+
+    }
+    console.log(comm);
+    return comm
 }
 

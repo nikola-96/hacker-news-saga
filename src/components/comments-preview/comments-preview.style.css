@@ -14,3 +14,18 @@
       font-size: 12px;
     }
   }
+
+.show-more-btn {
+  font-size: 14px;
+  color: gray;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  transition: color .3s ease-in-out;
+  cursor: pointer;
+    /* color: black;} */
+}
+.show-more-btn:hover{
+font-style: italic;
+color: black;
+}
