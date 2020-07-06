@@ -3,7 +3,7 @@ import CommentsActionTypes from "./comments-types";
 const INITIAL_STATE = {
     comments: [],
     childComments: [],
-    isFetched: false
+    isFetched: true
 }
 
 const commentsReducer = (state = INITIAL_STATE, action) => {
@@ -16,13 +16,15 @@ const commentsReducer = (state = INITIAL_STATE, action) => {
         case CommentsActionTypes.FETCH_PARENT_COMMENTS_SUCCESS:
             return {
                 ...state,
-                comments: action.payload
+                comments: action.payload,
+                isFetched: true
             }
         case CommentsActionTypes.FETCH_CHILD_COMMENTS_SUCCESS:
             return {
                 ...state,
-                childComments: action.payload
+                childComments: state.childComments.concat(action.payload)
             }
+
         default: return state
     }
 }

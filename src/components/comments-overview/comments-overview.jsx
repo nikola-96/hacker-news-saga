@@ -4,8 +4,7 @@ import Spinner from '../spinner/spinner.component';
 import { connect } from 'react-redux';
 import { fetchParentComments } from '../../redux/comments/comments-actions';
 
-const Comments = ({ storie, fetchParentComments, comments }) => {
-    // const [comments, setComments] = useState([]);
+const Comments = ({ storie, fetchParentComments, comments, isFetched }) => {
     useEffect(() => {
         if (storie.kids) {
             fetchParentComments(storie)
@@ -15,7 +14,7 @@ const Comments = ({ storie, fetchParentComments, comments }) => {
 
     return (
         <React.Fragment >
-            {!comments.length && (<Spinner />)}
+            {/* {isFetched ? null : (<Spinner />)} */}
             {
                 comments.map(comment => <CommentComponent key={comment.id} comment={comment} />)
             }
@@ -27,6 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchParentComments: (obj) => dispatch(fetchParentComments(obj))
 })
 const mapStateToProps = ({ comments }) => ({
-    comments: comments.comments
+    comments: comments.comments,
+    isFetched: comments.isFetched
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Comments)

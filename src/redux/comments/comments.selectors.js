@@ -6,8 +6,12 @@ export const slelectComments = createSelector(
     [commentSelector],
     comments => comments.comments
 )
+export const selectChildComments = createSelector(
+    [commentSelector],
+    comments => comments.childComments
+
+)
 export const selectCommentsByParentId = parent => createSelector(
-    [slelectComments],
+    [selectChildComments],
     comments => comments.filter(comment => comment.parent === parent.id)
-        .map(comment => comment)
 )

@@ -1,35 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import axios from '../../helperFunction/baseURL';
+import React, { useState } from 'react'
 import moment from 'moment'
 
 import './comments-preview.style.css'
-import { getDescendants } from '../../helperFunction/commentsUtility';
 import { connect } from 'react-redux';
 import { fetchChildComments } from '../../redux/comments/comments-actions';
+import { selectCommentsByParentId } from '../../redux/comments/comments.selectors';
+import Subcomments from '../subcomments-preview.component/subcomments-preview.component';
 
-const CommentComponent = ({ comment, fetchComm }) => {
-    const [comments, setComments] = useState([]);
+const CommentComponent = ({ comment, fetchChildComments, childComments }) => {
+    const [showReplays, setReplays] = useState(false);
     const [hidden, setHidden] = useState(false)
-    const [numComments, setNumComments] = useState(0)
-    let mounted = true;
+    const [fetchedReplays, setReplayFetchStatus] = useState(true)
 
-    useEffect(() => {
-        // if (comment.hasOwnProperty('kids')) {
-        //     const promiseArray = comment.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
-        //     Promise.all(promiseArray).then(responses => {
-        //         if (mounted) {
-        //             setComments(responses
-        //                 .filter(response => response.data.deleted !== true) //return comment if is not deleted
-        //                 .map(reponse => reponse.data))
-        //         }
-        //     })
-        // }
-        // return () => mounted = false;
-
-    }, [comment])
-
-
-    // const commentsList = () => comments.map(commentKid => <CommentComponent key={commentKid.id} comment={commentKid} />)
+    const click = (comment) => {
+        fetchChildComments(comment)
+        setReplays(true)
+        setReplayFetchStatus(false)
+    }
+    const commentsList = () => childComments.map(commentKid => <Subcomments key={commentKid.id} comment={commentKid}{...fetchChildComments} />)
     return (
         <div className="bg-light pt-3 comment">
             <div className="d-flex flex-wrap">
@@ -44,23 +32,37 @@ const CommentComponent = ({ comment, fetchComm }) => {
                             {hidden ? `show` : `hide`}
                         </span>
                     </div>
-                    <div className={`pl-4 ${hidden ? 'd-none' : 'd-block'}`}>
-                        <div dangerouslySetInnerHTML={{ __html: comment.text }} />
-                    </div>
+                    {
+                        hidden ? null
+                            :
+                            < div >
+                                <div className={`pl-4  d-block`}>
+                                    <div dangerouslySetInnerHTML={{ __html: comment.text }} />
+                                </div>
+                                {
+                                    comment.hasOwnProperty('kids') && fetchedReplays ?
+                                        <span className="mx-1 show-more-btn"
+                                            onClick={() => click(comment)}>Show replays</span>
+                                        : null
+                                }
+                                {
+                                    showReplays ?
+                                        <div className={`bg-secondary ml-4  d-block`}>
+                                            {commentsList()}
+                                        </div>
+                                        : null
+                                }
+                            </div>
+                    }
                 </div>
             </div>
-            {
-                comment.hasOwnProperty('kids') ?
-                    <div className={`bg-secondary ml-4  d-block`}>
-                        <button onClick={() => fetchComm(comment)}>fetch</button>
-                    </div>
-                    : null
-
-            }
         </div >
     )
 }
-const mapDispatchToProps = dispatch => ({
-    fetchComm: (comments) => dispatch(fetchChildComments(comments))
+const mapStateToProps = (state, ownProps) => ({
+    childComments: selectCommentsByParentId(ownProps.comment)(state),
 })
-export default connect(null, mapDispatchToProps)(CommentComponent)
+const mapDispatchToProps = dispatch => ({
+    fetchChildComments: (comments) => dispatch(fetchChildComments(comments))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(CommentComponent)
