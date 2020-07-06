@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import CommentComponent from '../comments-preview/comments-preview.component'
 import Spinner from '../spinner/spinner.component';
 import { connect } from 'react-redux';
@@ -6,7 +6,7 @@ import { fetchParentComments } from '../../redux/comments/comments-actions';
 
 const Comments = ({ storie, fetchParentComments, comments, isFetched }) => {
     useEffect(() => {
-        if (storie.kids) {
+        if (storie) {
             fetchParentComments(storie)
 
         }
@@ -16,7 +16,7 @@ const Comments = ({ storie, fetchParentComments, comments, isFetched }) => {
         <React.Fragment >
             {/* {isFetched ? null : (<Spinner />)} */}
             {
-                comments.map(comment => <CommentComponent key={comment.id} comment={comment} />)
+                comments.map((comment, index) => <CommentComponent key={index} comment={comment} />)
             }
         </React.Fragment>
 

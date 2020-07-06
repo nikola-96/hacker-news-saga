@@ -24,7 +24,12 @@ const commentsReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 childComments: state.childComments.concat(action.payload)
             }
-
+        case CommentsActionTypes.SET_COMMENTS_TO_INITIAL_STATE: {
+            return {
+                ...state,
+                comments: action.payload
+            }
+        }
         default: return state
     }
 }

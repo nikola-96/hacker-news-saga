@@ -15,7 +15,8 @@ const Subcomments = ({ comment, fetchChildComments, childComments }) => {
     const click = (comment) => {
         fetchChildComments(comment)
         setReplays(true)
-        setReplayFetchStatus(false)
+        setReplayFetchStatus(false)/*If replays are alredy fetched, then btn
+        for fetching will be disabled */
     }
     const commentsList = () => childComments.map(commentKid => <CommentComponent key={commentKid.id} comment={commentKid} />)
     return (

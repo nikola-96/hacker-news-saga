@@ -12,14 +12,23 @@ export const fetchCommetnsChildSuccess = (comments) => ({
     type: CommentsActionTypes.FETCH_CHILD_COMMENTS_SUCCESS,
     payload: comments
 })
+export const setingCommentsToInitialState = () => ({
+    type: CommentsActionTypes.SET_COMMENTS_TO_INITIAL_STATE,
+    payload: []
+})
 
 export const fetchParentComments = (object) => {
     return dispatch => {
-        dispatch(fetchCommentsStart())
-        const promiseArray = object.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
+        if (object.hasOwnProperty('kids')) {
+            dispatch(fetchCommentsStart())
+            const promiseArray = object.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
 
-        Promise.all(promiseArray)
-            .then(responses => dispatch(fetchParentCommentsSuccess(responses.map(reponse => reponse.data))))
+            Promise.all(promiseArray)
+                .then(responses => dispatch(fetchParentCommentsSuccess(responses.map(reponse => reponse.data))))
+                .catch(error => console.log(error))
+        } else {
+            dispatch(setingCommentsToInitialState())
+        }
     }
 }
 export const fetchChildComments = (comment) => {
@@ -28,5 +37,6 @@ export const fetchChildComments = (comment) => {
         const promiseArray = comment.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
         Promise.all(promiseArray)
             .then(responses => dispatch(fetchCommetnsChildSuccess(responses.map(reponse => reponse.data))))
+            .catch(error => console.log(error))
     }
 }

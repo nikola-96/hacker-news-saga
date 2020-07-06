@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import moment from 'moment'
 
-import './comments-preview.style.css'
 import { connect } from 'react-redux';
 import { fetchChildComments } from '../../redux/comments/comments-actions';
 import { selectCommentsByParentId } from '../../redux/comments/comments.selectors';
 import Subcomments from '../subcomments-preview.component/subcomments-preview.component';
+
+import './comments-preview.style.css'
+
 
 const CommentComponent = ({ comment, fetchChildComments, childComments }) => {
     const [showReplays, setReplays] = useState(false);
