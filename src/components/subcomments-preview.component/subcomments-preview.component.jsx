@@ -18,7 +18,7 @@ const Subcomments = ({ comment, fetchChildComments, childComments }) => {
         setReplayFetchStatus(false)/*If replays are alredy fetched, then btn
         for fetching will be disabled */
     }
-    const commentsList = () => childComments.map(commentKid => <CommentComponent key={commentKid.id} comment={commentKid} />)
+    const commentsList = () => childComments.map((commentKid, index) => <CommentComponent key={index} comment={commentKid} />)
     return (
         <div className="bg-light pt-3 comment">
             <div className="d-flex flex-wrap">

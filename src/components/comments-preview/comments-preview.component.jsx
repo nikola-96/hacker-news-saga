@@ -19,7 +19,7 @@ const CommentComponent = ({ comment, fetchChildComments, childComments }) => {
         setReplays(true)
         setReplayFetchStatus(false)
     }
-    const commentsList = () => childComments.map(commentKid => <Subcomments key={commentKid.id} comment={commentKid}{...fetchChildComments} />)
+    const commentsList = () => childComments.map((commentKid, index) => <Subcomments key={index} comment={commentKid} />)
     return (
         <div className="bg-light pt-3 comment">
             <div className="d-flex flex-wrap">
