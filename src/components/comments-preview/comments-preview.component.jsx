@@ -4,8 +4,10 @@ import moment from 'moment'
 
 import './comments-preview.style.css'
 import { getDescendants } from '../../helperFunction/commentsUtility';
+import { connect } from 'react-redux';
+import { fetchChildComments } from '../../redux/comments/comments-actions';
 
-const CommentComponent = ({ comment }) => {
+const CommentComponent = ({ comment, fetchComm }) => {
     const [comments, setComments] = useState([]);
     const [hidden, setHidden] = useState(false)
     const [numComments, setNumComments] = useState(0)
@@ -39,7 +41,7 @@ const CommentComponent = ({ comment }) => {
                         <span className="mx-1">{moment.unix(comment.time).startOf('minutes').fromNow()}</span>|
                         <span className="mx-1 show-more-btn"
                             onClick={() => setHidden(!hidden)}>
-                            {hidden ? `show replays` : `hide replays`}
+                            {hidden ? `show` : `hide`}
                         </span>
                     </div>
                     <div className={`pl-4 ${hidden ? 'd-none' : 'd-block'}`}>
@@ -47,15 +49,18 @@ const CommentComponent = ({ comment }) => {
                     </div>
                 </div>
             </div>
-            {/* {
-                hidden ?
-                    null
-                    :
+            {
+                comment.hasOwnProperty('kids') ?
                     <div className={`bg-secondary ml-4  d-block`}>
-                        {commentsList()}
+                        <button onClick={() => fetchComm(comment)}>fetch</button>
                     </div>
-            } */}
+                    : null
+
+            }
         </div >
     )
 }
-export default CommentComponent
+const mapDispatchToProps = dispatch => ({
+    fetchComm: (comments) => dispatch(fetchChildComments(comments))
+})
+export default connect(null, mapDispatchToProps)(CommentComponent)

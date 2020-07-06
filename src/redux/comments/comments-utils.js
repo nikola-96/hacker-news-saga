@@ -8,7 +8,7 @@ export const fetchComm = async (comment) => {
         const responses = await Promise.all(promiseArray);
 
         comments = responses
-            .filter(response => response.data.deleted !== true) //return comment if is not deleted
+            // .filter(response => response.data.deleted !== true) //return comment if is not deleted
             .map(reponse => reponse.data)
 
     }

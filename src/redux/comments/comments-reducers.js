@@ -1,8 +1,8 @@
 import CommentsActionTypes from "./comments-types";
-import { checkIsCommentDeleted } from "./comments-utils";
 
 const INITIAL_STATE = {
     comments: [],
+    childComments: [],
     isFetched: false
 }
 
@@ -17,6 +17,11 @@ const commentsReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 comments: action.payload
+            }
+        case CommentsActionTypes.FETCH_CHILD_COMMENTS_SUCCESS:
+            return {
+                ...state,
+                childComments: action.payload
             }
         default: return state
     }

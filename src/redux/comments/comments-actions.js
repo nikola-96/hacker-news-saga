@@ -9,7 +9,8 @@ export const fetchParentCommentsSuccess = (comments) => ({
     payload: comments
 })
 export const fetchCommetnsChildSuccess = (comments) => ({
-    type: CommentsActionTypes
+    type: CommentsActionTypes.FETCH_CHILD_COMMENTS_SUCCESS,
+    payload: comments
 })
 
 export const fetchParentComments = (object) => {
@@ -24,9 +25,7 @@ export const fetchParentComments = (object) => {
 export const fetchChildComments = (comment) => {
     return dispatch => {
         dispatch(fetchCommentsStart())
-
         const promiseArray = comment.kids.map(id => axios.get(`item/${id}.json?print=pretty`))
-
         Promise.all(promiseArray)
             .then(responses => dispatch(fetchCommetnsChildSuccess(responses.map(reponse => reponse.data))))
     }
