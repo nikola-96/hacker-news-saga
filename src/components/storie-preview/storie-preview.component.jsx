@@ -27,7 +27,6 @@ const StoriePreview = ({ storie }) => {
                         data: storie
                     }}
                     className="my-0 mx-1 com-descendants"
-                    onClick={() => console.log('radi')}
                 >
                     {storie.descendants ? storie.descendants : 0} comments
                 </Link>
